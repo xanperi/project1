@@ -1,0 +1,54 @@
+-- creates a project in the format "2012-03-23[1332532193]"
+-- result = NewProject(os.date("%Y-%m-%d") .. "[" .. os.time() .. "]" )
+-- if not result then
+--   PrintValue( "The project was not created successfully." )
+--   return
+-- end
+
+-- base_3dmodel_path = "C:\\Development\\KinectScans\\";
+base_3dmodel_path = "C:\\Servers\\nginx-1.8.0\\html\\room_models\\";
+
+while 1 do
+
+	-- start the timer
+	startTime = os.clock()
+	-- enable capture-only mode
+	Set("Scanning_Generation_Type", 2)
+	-- capture 10 scans and add them to a list
+	groupList = NewListString()
+	-- for i=1,1 do
+	result, newGroups = Scan()
+	-- check to make sure the scan went OK - if not, we stop the script execution
+	if not result then
+		-- show a custom error message
+		PrintValue( "Scan #" .. i .. " failed." )
+		return
+	end
+	-- add the new groups to the list (usually there will only be one, but there could be more for multi-scanner setups)
+	groupList:AddRange( newGroups )
+	   -- pause for 7 seconds to allow the object to be moved/rotated
+	-- end
+	-- get the final count of groups
+	groupCount = groupList.Count
+	-- loop through and process the new scan groups into meshes - note that list indexing starts at 0
+	-- for i=0,groupCount-1 do
+	-- result = Process( groupList[i], 0 )
+	result = Process( groupList[0], 0 )
+	-- result2 = LoadGroup(groupList[i])
+	result2 = LoadGroup(groupList[0])
+	-- check the result
+	if not result then
+		PrintValue( "Failed to process group: " .. groupList[i] )
+		return
+	end
+	-- end
+
+--	actual_3dmodel_path =  base_3dmodel_path .. os.date("%Y-%m-%d") .. "[" .. os.time() .. "]"
+
+--	os.execute( "mkdir " .. actual_3dmodel_path )
+--	Export(actual_3dmodel_path ,".fbx");
+	Export(base_3dmodel_path, ".fbx")
+	totalTime = os.clock() - startTime
+	PrintValue( "Script completed successfully. Time taken: " .. totalTime .. " seconds" )
+
+end
