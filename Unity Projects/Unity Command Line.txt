@@ -1,0 +1,5 @@
+"C:\Program Files\Unity\Editor\Unity.exe" -quit -batchmode -nographics -buildTarget android
+
+"C:\Program Files\Unity\Editor\Unity.exe" -quit -batchmode -nographics -buildTarget android -executeMethod "C:\Users\Xandre\Documents\Asset Bundle Test\Assets\AssetBundleManager\Editor\BuildScript.BuildAssets"
+
+"C:\Program Files\Unity\Editor\Unity.exe" -quit -batchmode -nographics -buildTarget android -projectPath "C:\Users\Xandre\Documents\Asset Bundle One Model" -executeMethod "AssetBundles.BuildScript.BuildAssetBundles"
